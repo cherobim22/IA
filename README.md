@@ -3,7 +3,7 @@ Exercícios desenvolvidos em Python
 
 ### Install
 
-```sh
-  https://www.python.org/downloads/
-```
+
+ *  https://www.python.org/downloads/
+
 
