@@ -8,7 +8,7 @@ $(document).ready(function($){
         for (var i = 3; i <= $("#missionaries").val(); i++) {
             string += "<br><img src='img/missionary.jpg' class='img-rounded' width='75'>"
         };
-        $("#missionaries1").html(string)
+        $("#missionariesAQUI").html(string)
     });
 
 
