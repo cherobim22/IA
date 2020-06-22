@@ -2,40 +2,9 @@
 $(document).ready(function($){
     "use strict"; 
 
-    //if value of misisonaries select box is changed
-    $("#missionaries").change(function(){
-         var string = "<img src='img/missionary.jpg' class='img-rounded' width='75'><br><img src='img/missionary.jpg' class='img-rounded' width='75'>";
-        for (var i = 3; i <= $("#missionaries").val(); i++) {
-            string += "<br><img src='img/missionary.jpg' class='img-rounded' width='75'>"
-        };
-        $("#missionariesAQUI").html(string)
-    });
-
-
-    //if value of cannibals select box is changed
-    $("#cannibals").change(function(){
-         var string = ""
-        for (var i = 1; i <= $("#cannibals").val(); i++) {
-            string += "<img src='img/cannibal.jpg' class='img-rounded' width='75'><br>"
-        };
-        if ($("#cannibals").val() == 0){
-            string = ""
-        }; 
-        $("#cannibals1").html(string)
-    });
-
-    //if value of boat select box is changed
-    $("#boat").change(function(){
-         var string = "<img src='img/boat" + $("#boat").val() + ".jpg' class='img-rounded' width='75'>"
-
-         $("#boat1").html(string)
-    });
-
-
     //when inputs are submitted
     $("#submit").click(function(){
-        solve($("#missionaries").val(), $("#cannibals").val(), $("#boat").val())
-
+        solve($("#missionarios").val(), $("#canibais").val(), $("#barco").val())
 
     });
 
@@ -43,22 +12,22 @@ $(document).ready(function($){
 
 });
 
-//function called when you press the run button
+//função chamada a partir do click
 function solve(m, c, b){
-    var output = "Running with\n" + m + " Missionaries, " + c + " Cannibals, and boat size: " + b
+    var output = "Vamos Atravessar\n" + m + " Missionarios, " + c + " Canibais, cabendo: " + b + " integrantes no barco"
     console.log(output)
-    $("#output").html("")//clear output area
+    $("#output").html("")//limpa a area de saida
     $("#output").append("<h4>" + output + "</h4>")
 
-    //rename the variables because why not
-    var cannibals = c
-    var missionaries = m
-    var boat = b
+    //renomeando variaveis
+    var canibais = c
+    var missionarios = m
+    var barco = b
 
-    //determine set of possible boat configurations from size of boat and and number of c and m
+    //determinar o conjunto de configurações possíveis do barco a partir do tamanho do barco e do número de c e m
     var actions = getPossibleActions(cannibals, missionaries, boat)
     
-    //create data structures for keeping up with states
+    //atraves do buckets criamos estruturas de dados a partir de variaveis
     var visited = new buckets.Dictionary()
     var queue = new buckets.Queue()
 
