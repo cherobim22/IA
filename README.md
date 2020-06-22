@@ -1,9 +1,4 @@
-# Python
-Exercícios desenvolvidos em Python
-
-### Install
-
-
- *  https://www.python.org/downloads/
+# Inteligencia Artificial
+Exercícios desenvolvidos durante a matéria de inteligencia artificial
 
 
