@@ -7,9 +7,6 @@ $(document).ready(function($){
         solve($("#missionarios").val(), $("#canibais").val(), $("#barco").val())
 
     });
-
-
-
 });
 
 //função chamada a partir do click
@@ -35,22 +32,22 @@ function solve(m, c, b){
     var startState = new buckets.Dictionary()
     var otherside = new buckets.Dictionary()
 
-    //set the initial direction
+    //set direção incial
     var direction = "right"
 
-    //initialize otherside node to be empty
+    //inicializa o outro lado(no) como vazio 
     otherside = initializeNode(otherside, 0, 0, 0, otherside, null, null)
 
-    //set inital state to what was provided
+    //seta estad inicial com o que foi informado 
     startState = initializeNode(startState, missionaries, cannibals, boat, otherside, null, direction)
 
-    //update otherside's otherside since it didn't exist when we created it
+    //atualiza o outro lado
     otherside.set("otherside", startState)
 
-    //add the first state to the queue
+    //adiciona o primeiro estado da fila
     queue.add(startState)
 
-    //perform the BFS
+    //executa a busca byFirstStep
     executeBFS(startState, visited, queue, direction, actions)
 }
 
@@ -60,7 +57,7 @@ function executeBFS(startState, visited, queue, direction, actions){
     var solutionFound = false
     var nodesExpanded = 0
     var finalNode = null
-    var startMissionaries = parseInt(startState.get("missionaries"))//for some reason this is a string when larger than 9
+    var startMissionaries = parseInt(startState.get("missionaries"))
     while(!finished && !queue.isEmpty() && (startMissionaries>= startState.get("cannibals"))){
         var currentNode = queue.dequeue()
 
@@ -211,7 +208,7 @@ function executeBFS(startState, visited, queue, direction, actions){
             finalNode = finalNode.get("parent")
         }
 
-        //add start state start state
+        //adicionando start 
         printStack.push("<" + maxMiss +"," + maxCan + ",B> <0,0>")
 
         //pop off each move so it shows up in order
@@ -226,14 +223,14 @@ function executeBFS(startState, visited, queue, direction, actions){
          $("#output").append("<br>" + output)
     }
     else{
-        //no solution was found. show number of nodes processed anyhow
+        //nenhuma solução encontrada
         var output = "No solution" + "\nTotal nodes expanded: " + nodesExpanded
         console.log(output)
          $("#output").append("<br>" + output)
     }
 }
 
-//"constructor" for node. It just sets the key-value pairs in a dictionary and returns it
+//constructor do nó, definindo valores-chave
 function initializeNode(node, m, c, b, othernode, parent, direction){
     node.set("missionaries", m)
     node.set("cannibals", c)
@@ -251,9 +248,9 @@ function initializeNode(node, m, c, b, othernode, parent, direction){
 function getPossibleActions(c, m, b){
     var actionsArray = []
     
-    for (var j = 0; j <= m; j++){//number of missionaries
-        for (var k = 0; k <= c; k++){//number of cannibals
-            if ((j + k) <= b && (j+k) > 0){//make sure they fit on the boat
+    for (var j = 0; j <= m; j++){//numero de missionarios
+        for (var k = 0; k <= c; k++){//numero de canibais 
+            if ((j + k) <= b && (j+k) > 0){//verifica se o barco esta balanceado
                 //console.log(j + "" + k)
                 actionsArray.push(j +"" + k)
             };
