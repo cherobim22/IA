@@ -1,1 +1,0 @@
-Problema da distribuição de carga num avião
