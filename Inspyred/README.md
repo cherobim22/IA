@@ -3,7 +3,7 @@
 O inspyred é uma estrutura livre e de código aberto para a criação de algoritmos de inteligência computacional de inspiração biológica no Python, incluindo computação evolutiva, inteligência de enxame e imunocomputação.
 
 ## Install
-    - https://www.python.org/downloads/
+
     - pip install inspyred
     
     
