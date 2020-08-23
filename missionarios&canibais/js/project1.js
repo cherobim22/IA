@@ -61,30 +61,27 @@ function executeBFS(startState, visited, queue, direction, actions){
     while(!finished && !queue.isEmpty() && (startMissionaries>= startState.get("cannibals"))){
         var currentNode = queue.dequeue()
 
-        //add the current node to the visited dictionary. The "key" is the current node state, and its "value" is the state of the node (not in memory) opposite of it
         var visitedNodeKey = "<" + currentNode.get("missionaries") + ", " + currentNode.get("cannibals") + ", " + currentNode.get("direction") + ">"
-        var visitedNodeValue = "<" + (startState.get("missionaries") - currentNode.get("missionaries")) + ", " + (startState.get("cannibals") - currentNode.get("cannibals")) + ">"//wow so fancy maths
+        var visitedNodeValue = "<" + (startState.get("missionaries") - currentNode.get("missionaries")) + ", " + (startState.get("cannibals") - currentNode.get("cannibals")) + ">"
         visited.set(visitedNodeKey, visitedNodeValue)
-        var currentOtherside = currentNode.get("otherside")//so we can be less verbose later
+        var currentOtherside = currentNode.get("otherside")
 
-        //expand all possibilities from the current node's configuration
+        
         for(var i = 0; i < actions.length; i++){
             
             var missionaryAction = parseInt(actions[i].charAt(0))
             var cannibalAction = parseInt(actions[i].charAt(1))
 
-            //case 1: the boat needs to go from left to right, so subtract from currentNode's missionaries and cannibals
+       
             if (currentNode.get("direction") == "right"){
                 
 
                 var m = currentNode.get("missionaries") - missionaryAction
                 var c = currentNode.get("cannibals") - cannibalAction
-                var b = 0//boat is leaving
+                var b = 0
 
-                //if both are zero, we're done
+               
                 if (m == 0 && c == 0){
-                    //console.log("finished")
-                    //make final node
                     finalNode = new buckets.Dictionary()
                     finalNode = initializeNode(finalNode, 0, 0, 0, null, currentNode, "left")
                     finalOtherside = new buckets.Dictionary()
@@ -97,17 +94,13 @@ function executeBFS(startState, visited, queue, direction, actions){
                     i = actions.length
                 }
 
-                //add other to other side
                 var otherM = currentOtherside.get("missionaries") + missionaryAction
                 var otherC = currentOtherside.get("cannibals") + cannibalAction
 
-                //make sure that there are valid numbers of missionaries and cannibals on each side after the additions and subtractions above
                 if (m >= 0 && c >= 0 && (m > 0 && (m - c >= 0)) || (m == 0 && c >= 0) && otherM <= startState.get("missionaries") && otherC <= startState.get("cannibals")){
                     if ((otherM> 0 && (otherM - otherC >= 0)) || (otherM == 0 && otherC >= 0)){
                         var visitedNodeKey = "<" + m + ", " + c + ", left>"
-                        //check to see if we've already processed this node
                         if (!visited.containsKey(visitedNodeKey)){
-                             //initialize a node and enqueue it
                             var nodeToAdd = new buckets.Dictionary()
                             nodeToAdd = initializeNode(nodeToAdd, m, c, startState.get("boat"), null, currentNode, "left")
                             var tempOtherside = new buckets.Dictionary()
@@ -115,27 +108,19 @@ function executeBFS(startState, visited, queue, direction, actions){
                             nodeToAdd.set("otherside", tempOtherside)
                             queue.enqueue(nodeToAdd)
                             nodesExpanded ++
-                            //console.log("node added to queue: " + visitedNodeKey)
                         }
-                        else{
-                           // console.log("case 1: prevented a node from being expanded twice")
-                         }
                     }
                 }
-            }//end case 1
-
-            //case 2: we need to go from right to left, so add to the number of missionaries and cannibals
+            }
+            
             else if (currentNode.get("direction") == "left"){
 
-                //console.log("case 2 met")
                 var m = currentNode.get("missionaries") + missionaryAction
                 var c = currentNode.get("cannibals") + cannibalAction
                 var b = startState.get("boat")
 
-                //like in case 1, if m and c are 0, we're done
                 if (m == 0 && c == 0){
-                  //  console.log("finished")
-                    //make final node
+                    
                     finalNode = new buckets.Dictionary()
                     finalNode = initializeNode(finalNode, 0, 0, 0, null, currentNode, "left")
                     finalOtherside = new buckets.Dictionary()
@@ -151,13 +136,12 @@ function executeBFS(startState, visited, queue, direction, actions){
                 var otherM = currentOtherside.get("missionaries") - missionaryAction
                 var otherC = currentOtherside.get("cannibals") - cannibalAction
 
-                //make sure that there are valid numbers of missionaries and cannibals on each side after the additions and subtractions above
                 if(m <= startState.get("missionaries") && c <= startState.get("cannibals") && (m > 0 && (m - c >= 0)) || (m == 0 && c >= 0) && otherM >= 0 && otherC >= 0){
                     if((otherM> 0 && (otherM - otherC >= 0)) || (otherM == 0 && otherC >= 0)){
-                        //check to see if we've already processed this node
+                    
                          var visitedNodeKey = "<" + m + ", " + c +", right>"
                          if (!visited.containsKey(visitedNodeKey)){
-                            //initialize a node and enqueue it
+                           
                             var nodeToAdd = new buckets.Dictionary()
                             nodeToAdd = initializeNode(nodeToAdd, m, c, b, null, currentNode, "right")
                             var tempOtherside = new buckets.Dictionary()
@@ -166,19 +150,14 @@ function executeBFS(startState, visited, queue, direction, actions){
                             queue.enqueue(nodeToAdd)
                             nodesExpanded ++
                          }
-                         else{
-                           // console.log("case 2: prevented a node from being expanded twice")
-                         }
                     }
                 }
-            }//end case 2
-        }//end action loop
-    }//end while loop
+            }
+        }
+    }
 
-    //there is a solution
     if(solutionFound){
 
-        //some temp variables 
         var maxMiss = startState.get("missionaries")
         var maxCan = startState.get("cannibals")
         var boatRight = ""
@@ -187,10 +166,8 @@ function executeBFS(startState, visited, queue, direction, actions){
         console.log("Solution:")
         $("#output").append("Solution:")
 
-        //make queue so we don't print in reverse order
         var printStack = new buckets.Stack()
 
-        //go up the solution path and enqueue the node information in the output stack
         while (finalNode.get("parent") != null){
             moveCount ++
             var currentMiss = finalNode.get("missionaries")
@@ -208,10 +185,8 @@ function executeBFS(startState, visited, queue, direction, actions){
             finalNode = finalNode.get("parent")
         }
 
-        //adicionando start 
         printStack.push("<" + maxMiss +"," + maxCan + ",B> <0,0>")
 
-        //pop off each move so it shows up in order
         while(!printStack.isEmpty()){
             var output = printStack.pop()
             console.log(output)
@@ -242,9 +217,6 @@ function initializeNode(node, m, c, b, othernode, parent, direction){
     return node
 }
 
-//comes up with every possible action state from input nubmers
-//actions are just strings with two integers appended together in the form XX
-//a 10 action means move 1 missionary and 0 cannibals
 function getPossibleActions(c, m, b){
     var actionsArray = []
     
