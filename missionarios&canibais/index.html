@@ -1,45 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Missionarios e Canibais</title>
+		<title>Project 1</title>
 		<meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<link href = "css/bootstrap.min.css" rel="stylesheet"/>
 		<script src="js/jquery-1.11.3.min.js"></script>
 		<script type="text/javascript" src="js/project1.js"></script>
 		<script src="js/buckets.min.js"></script>
-		<style src="css/style.css"></style>
+		
+		<style>
+			hr {
+  			  display: block;
+  			  height: 1px;
+  			  border: 0;
+ 			  border-top: 1px solid #ccc;
+ 			  margin: 1em 0;
+  			  padding: 0; 
+			}
+		</style>
 	</head>
 
 	<body>
-		<div class ="container">
+		<div style ="width: 98%; border: 1px solid #ccc" class ="container">
 		<div class="row">
-				<h1 style = "text-align: center">Problema dos missionarios e canibais</h1>
+				<h1 style = "text-align: center">Missionarios e canibais</h1>
 				<hr>
 		</div>
 		
-		<div class= "row">
+		<div class = "row">
 			<div style="border: 1px solid #ccc" id="input" class="container">
 				<div class="col-xs-4">
 					<h4>Missionarios </h4>
-					<select id="missionarios" class="form-control">
+					<select id="missionaries" class="form-control">
 						<option>2</option>
 						<option selected>3</option>
-					
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+						<option>9</option>
+						<option>10</option>
+						<option>11</option>
+						<option>12</option>
+						<option>13</option>
+						<option>14</option>
+						<option>15</option>
+						<option>16</option>
+						<option>17</option>
+						<option>18</option>
+						<option>19</option>
+						<option>20</option>
 					</select>
 				</div>
 				<div class="col-xs-4">
 					<h4>Canibais </h4>
-					<select id="canibais" class="form-control">
+					<select id="cannibals" class="form-control">
+						<option>0</option>
 						<option>1</option>
 						<option>2</option>
 						<option selected>3</option>
-						
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
 					</select>
 				</div>
 				<div class="col-xs-4">
-					<h4>Boat Size </h4>
-					<select id="barco" class="form-control">
+					<h4>Barco (capacidade) </h4>
+					<select id="boat" class="form-control">
 						<option>2</option>
 						<option>3</option>
 						<option>4</option>
@@ -47,18 +76,15 @@
 				</div>
 				<div style="padding-bottom:15px" class="col-xs-12 text-center">
 					<br>
-					<button id="submit" class="btn btn-primary ">Testar Entradas</button>
+					<button id="submit" class="btn btn-primary ">Executar</button>
 				</div>
+
 			</div>
 		</div>
-
-		<div class="row">
-			<h3 id="step">movimento: 0</h3>
-		</div>
-
+		
 		<div class="row">
 			<h3>Saida</h3>
-			<pre id="output"> Aguardando Entrada</pre>
+			<pre id="output">.....</pre>
 		</div>
 		</div>
 	</body>
