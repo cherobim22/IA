@@ -1,2 +1,8 @@
-pip install Keras
-pip install tensorflow
+
+Image classification
+
+```sh
+$ pip install Keras
+$ pip install tensorflow
+```
+
